@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Content editor — Community Unlimited</title>
+<link rel="icon" href="../assets/mark.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#3CBFB8; --orange:#EA5C2A; --emerald:#053531; --bronze:#964E1E;
+  --wash:#EAF7F6; --line:#CFE7E5; --ink:#053531; --soft:#3D5F5B;
+  --f:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:var(--f);font-size:16px;line-height:1.55;color:var(--ink);background:#F7FBFB}
+h1,h2,h3,p{margin:0}
+img{display:block;max-width:100%}
+
+/* ---- top bar ---- */
+.bar{position:sticky;top:0;z-index:20;background:var(--emerald);color:#fff;
+  display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;padding:.85rem clamp(1rem,3vw,2rem)}
+.bar img{height:34px;width:auto}
+.bar h1{font-size:1rem;font-weight:600;letter-spacing:.01em;margin-right:auto}
+.bar h1 small{display:block;font-size:.75rem;font-weight:500;color:#8FC9C4;letter-spacing:.06em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;gap:.45rem;min-height:42px;padding:0 1.1rem;border-radius:999px;
+  font:inherit;font-size:.9375rem;font-weight:600;border:2px solid transparent;cursor:pointer;text-decoration:none;
+  white-space:nowrap;transition:background-color .15s,border-color .15s,opacity .15s}
+.btn--go{background:var(--orange);color:#fff}
+.btn--go:hover{background:#D24A1B}
+.btn--gd{border-color:rgba(255,255,255,.5);color:#fff;background:none}
+.btn--gd:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.btn--g{border-color:var(--line);color:var(--emerald);background:#fff}
+.btn--g:hover{border-color:var(--teal);background:var(--wash)}
+.btn--sm{min-height:34px;font-size:.8125rem;padding:0 .8rem}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:4px}
+.bar :focus-visible{outline-color:var(--teal)}
+
+.wrap{max-width:920px;margin:0 auto;padding:clamp(1rem,3vw,2rem) clamp(1rem,3vw,2rem) 6rem}
+
+/* ---- status ---- */
+.msg{padding:.9rem 1.1rem;border-radius:12px;margin-bottom:1.25rem;font-size:.9375rem;display:none}
+.msg.on{display:block}
+.msg--ok{background:#E6F7EC;border:1px solid #A8DFBC;color:#12492B}
+.msg--err{background:#FDECE6;border:1px solid #F5BCA8;color:#7A2A10}
+.msg--info{background:var(--wash);border:1px solid var(--line);color:var(--emerald)}
+
+/* ---- groups ---- */
+details.grp{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:1rem;overflow:hidden}
+details.grp>summary{cursor:pointer;padding:1.05rem 1.25rem;font-weight:600;font-size:1.0625rem;
+  display:flex;align-items:center;gap:.6rem;list-style:none}
+details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary::before{content:"";width:9px;height:9px;border-right:2px solid var(--bronze);
+  border-bottom:2px solid var(--bronze);transform:rotate(-45deg);transition:transform .2s;flex:none}
+details.grp[open]>summary::before{transform:rotate(45deg)}
+details.grp>summary span{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--soft);margin-left:auto}
+.grp__body{padding:0 1.25rem 1.4rem;border-top:1px solid var(--wash)}
+
+/* ---- fields ---- */
+.f{margin-top:1.1rem}
+.f label{display:block;font-size:.8125rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--bronze);margin-bottom:.4rem}
+.f input[type=text],.f input[type=password],.f textarea{width:100%;font:inherit;font-size:1rem;color:var(--ink);
+  padding:.7rem .85rem;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.f textarea{min-height:5.2rem;resize:vertical;line-height:1.5}
+.f input:focus,.f textarea:focus{border-color:var(--teal);outline:none;box-shadow:0 0 0 3px rgba(60,191,184,.22)}
+.f .hint{font-size:.8125rem;color:var(--soft);margin-top:.35rem}
+.row{display:grid;gap:1rem;grid-template-columns:1fr}
+@media (min-width:640px){.row{grid-template-columns:1fr 1fr}}
+
+/* ---- repeatable items ---- */
+.item{border:1.5px solid var(--line);border-radius:12px;padding:1rem 1.1rem 1.25rem;margin-top:1.1rem;background:#FCFEFE}
+.item__hd{display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem}
+.item__hd b{font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze)}
+.item__hd .sp{margin-left:auto;display:flex;gap:.35rem}
+.iconbtn{width:32px;height:32px;display:grid;place-items:center;border:1.5px solid var(--line);
+  background:#fff;border-radius:8px;cursor:pointer;font-size:.95rem;line-height:1;color:var(--emerald)}
+.iconbtn:hover{border-color:var(--teal);background:var(--wash)}
+.iconbtn--del:hover{border-color:var(--orange);background:#FDECE6;color:#7A2A10}
+.add{margin-top:1rem}
+
+/* ---- image picker ---- */
+.img{display:flex;gap:.9rem;align-items:flex-start;margin-top:.5rem}
+.img__prev{width:110px;height:82px;flex:none;border-radius:8px;overflow:hidden;background:var(--wash);
+  border:1.5px solid var(--line);display:grid;place-items:center;font-size:.7rem;color:var(--soft);text-align:center}
+.img__prev img{width:100%;height:100%;object-fit:cover}
+.img__ctl{flex:1;min-width:0}
+.img__ctl input[type=file]{display:none}
+
+/* ---- token panel ---- */
+.tok{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem}
+.tok h2{font-size:1.0625rem;margin-bottom:.4rem}
+.tok p{font-size:.9375rem;color:var(--soft)}
+.tok ol{font-size:.9375rem;color:var(--soft);padding-left:1.3rem;margin:.7rem 0 0}
+.tok li{margin-bottom:.3rem}
+.tok code{background:var(--wash);padding:.1rem .35rem;border-radius:5px;font-size:.875rem}
+.warn{margin-top:.9rem;padding:.75rem .9rem;background:#FFF8E6;border:1px solid #F0D89A;border-radius:10px;
+  font-size:.875rem;color:#6B4E06}
+.state{display:inline-flex;align-items:center;gap:.4rem;font-size:.8125rem;font-weight:600;
+  padding:.25rem .6rem;border-radius:999px;background:var(--wash);color:var(--soft)}
+.state.ok{background:#E6F7EC;color:#12492B}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <img src="../assets/mark.svg" alt="">
+  <h1>Content editor<small>Community Unlimited</small></h1>
+  <a class="btn btn--gd btn--sm" href="../index.html" target="_blank" rel="noopener">View site</a>
+  <button class="btn btn--gd btn--sm" id="download">Download JSON</button>
+  <button class="btn btn--go" id="publish">Publish to site</button>
+</div>
+
+<div class="wrap">
+  <div class="msg" id="msg"></div>
+
+  <section class="tok">
+    <h2>GitHub access <span class="state" id="tokState">Not connected</span></h2>
+    <p>Publishing writes <code>content.json</code> straight to your repo, which makes Vercel rebuild the site. You need a token with write access to do that.</p>
+    <div class="f">
+      <label for="repo">Repository</label>
+      <input type="text" id="repo" value="Community-Unlimited/Community-Unlimited-Landing-Page">
+    </div>
+    <div class="f">
+      <label for="branch">Branch</label>
+      <input type="text" id="branch" value="main">
+    </div>
+    <div class="f">
+      <label for="token">Personal access token</label>
+      <input type="password" id="token" placeholder="github_pat_..." autocomplete="off">
+      <p class="hint">Kept in this browser tab only (sessionStorage). Closing the tab forgets it.</p>
+    </div>
+    <ol>
+      <li>GitHub → Settings → Developer settings → <b>Fine-grained tokens</b> → Generate new token.</li>
+      <li>Repository access: <b>only</b> this repo.</li>
+      <li>Permissions → Repository → <b>Contents: Read and write</b>.</li>
+      <li>Set a short expiry — 30 days is plenty.</li>
+    </ol>
+    <div class="warn"><b>This page is public.</b> Anyone can open <code>/admin</code>, though they can do nothing without a token. Before you share the site, turn on Vercel password protection for this path — Project → Settings → Deployment Protection.</div>
+  </section>
+
+  <form id="form" autocomplete="off"></form>
+</div>
+
+<script>
+/* =========================================================================
+   Schema-driven editor over content.json.
+   Nothing here knows about the site's markup — it edits data only, so
+   adding a field to content.json plus a line below is all it takes.
+   ========================================================================= */
+const SCHEMA = [
+  { key:'contact', label:'Contact details', badge:'phone & WhatsApp', fields:[
+    { k:'whatsappNumber', l:'WhatsApp number', hint:'Country code, digits only. e.g. 6591234567' },
+    { k:'whatsappMessage', l:'Pre-filled message', t:'area' },
+    { k:'phoneNumber', l:'Phone number (link)', hint:'e.g. +6591234567' },
+    { k:'phoneLabel', l:'Phone number (shown)', hint:'e.g. 9123 4567' }
+  ]},
+  { key:'hero', label:'Hero', badge:'top of page', fields:[
+    { k:'eyebrow', l:'Small label above headline' },
+    { k:'headlineLine1', l:'Headline — line 1' },
+    { k:'headlineLine2', l:'Headline — line 2' },
+    { k:'subhead', l:'Subheading' },
+    { k:'note', l:'Reassurance line' },
+    { k:'image', l:'Photograph', t:'img' },
+    { k:'imageAlt', l:'Photo description (for screen readers)', t:'area' }
+  ]},
+  { key:'purpose', label:'Purpose statement', fields:[
+    { k:'eyebrow', l:'Small label' },
+    { k:'statementBefore', l:'Statement — before the highlight' },
+    { k:'statementEmphasis', l:'Highlighted words', hint:'Shown in bronze' },
+    { k:'statementAfter', l:'Statement — after the highlight' },
+    { k:'body', l:'Supporting paragraph', t:'area' }
+  ]},
+  { key:'pillars', label:'What we solve', badge:'4 cards', list:true, min:1, max:8,
+    itemLabel:'Card', fields:[
+    { k:'title', l:'Title' },
+    { k:'body', l:'Description', t:'area' }
+  ]},
+  { key:'quote', label:'Quote band', fields:[
+    { k:'text', l:'Quote' },
+    { k:'caption', l:'Caption below', t:'area' },
+    { k:'image', l:'Background photograph', t:'img' },
+    { k:'imageAlt', l:'Photo description', t:'area' }
+  ]},
+  { key:'pathway', label:'How it works', fields:[
+    { k:'eyebrow', l:'Small label' },
+    { k:'heading', l:'Heading' },
+    { k:'intro', l:'Intro paragraph', t:'area' }
+  ]},
+  { key:'pathway.steps', label:'Pathway steps', badge:'numbered sequence', list:true, min:2, max:8,
+    itemLabel:'Step', fields:[
+    { k:'label', l:'Step label', hint:'e.g. STEP 01' },
+    { k:'title', l:'Title' },
+    { k:'body', l:'Description', t:'area' }
+  ]},
+  { key:'whatsOn', label:"What's on — section text", fields:[
+    { k:'eyebrow', l:'Small label' },
+    { k:'heading', l:'Heading' },
+    { k:'intro', l:'Intro paragraph', t:'area' }
+  ]},
+  { key:'whatsOn.events', label:'Events', badge:'add, edit, reorder', list:true, min:0, max:12,
+    itemLabel:'Event', titleFrom:'title', fields:[
+    { k:'when', l:'When', hint:'e.g. Every Sat · 7am' },
+    { k:'title', l:'Event name' },
+    { k:'body', l:'Description', t:'area' },
+    { k:'ctaLabel', l:'Button text' },
+    { k:'image', l:'Photograph', t:'img' },
+    { k:'imageAlt', l:'Photo description', t:'area' }
+  ]},
+  { key:'who', label:"Who it's for — section text", fields:[
+    { k:'eyebrow', l:'Small label' },
+    { k:'heading', l:'Heading' }
+  ]},
+  { key:'who.tiers', label:'Audience groups', list:true, min:1, max:6,
+    itemLabel:'Group', titleFrom:'title', fields:[
+    { k:'tag', l:'Tag', hint:'e.g. Primary' },
+    { k:'title', l:'Group name' },
+    { k:'body', l:'Description', t:'area' },
+    { k:'image', l:'Photograph', t:'img' },
+    { k:'imageAlt', l:'Photo description', t:'area' }
+  ]},
+  { key:'join', label:'Join section', fields:[
+    { k:'eyebrow', l:'Small label' },
+    { k:'heading', l:'Heading' },
+    { k:'body', l:'Paragraph', t:'area' },
+    { k:'primaryCta', l:'Button text' }
+  ]},
+  { key:'join.facts', label:'Quick facts', badge:'label & value rows', list:true, min:0, max:8,
+    itemLabel:'Fact', titleFrom:'label', fields:[
+    { k:'label', l:'Label' },
+    { k:'value', l:'Value' }
+  ]},
+  { key:'footer', label:'Footer', fields:[
+    { k:'domain', l:'Domain' },
+    { k:'social', l:'Social handle' },
+    { k:'hashtag', l:'Hashtag' }
+  ]}
+];
+
+const $ = s => document.querySelector(s);
+const form = $('#form'), msgEl = $('#msg');
+let data = null;
+const pendingUploads = [];   // images chosen but not yet committed
+
+function say(text, kind){
+  msgEl.className = 'msg on msg--' + (kind||'info');
+  msgEl.innerHTML = text;
+  if(kind !== 'err') setTimeout(()=>{ msgEl.className='msg'; }, 7000);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+const get = (o,p) => p.split('.').reduce((a,k)=> a==null?undefined:a[k], o);
+function set(o,p,v){
+  const ks = p.split('.'), last = ks.pop();
+  const t = ks.reduce((a,k)=> a[k]=a[k]||{}, o);
+  t[last] = v;
+}
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- rendering ---------- */
+function fieldHTML(f, path, val){
+  const id = 'i_' + path.replace(/[^a-z0-9]/gi,'_');
+  if(f.t === 'img'){
+    const v = val || '';
+    return `<div class="f"><label for="${id}">${esc(f.l)}</label>
+      <div class="img">
+        <div class="img__prev">${v?`<img src="../${esc(v)}" alt="" onerror="this.replaceWith(document.createTextNode('not found'))">`:'no image'}</div>
+        <div class="img__ctl">
+          <input type="text" id="${id}" data-path="${path}" value="${esc(v)}">
+          <p class="hint">Path inside the repo, e.g. <code>assets/hero.webp</code></p>
+          <input type="file" id="${id}_file" accept="image/*" data-target="${path}">
+          <button type="button" class="btn btn--g btn--sm" style="margin-top:.5rem"
+            onclick="document.getElementById('${id}_file').click()">Choose new image…</button>
+        </div>
+      </div></div>`;
+  }
+  if(f.t === 'area'){
+    return `<div class="f"><label for="${id}">${esc(f.l)}</label>
+      <textarea id="${id}" data-path="${path}">${esc(val)}</textarea>
+      ${f.hint?`<p class="hint">${f.hint}</p>`:''}</div>`;
+  }
+  return `<div class="f"><label for="${id}">${esc(f.l)}</label>
+    <input type="text" id="${id}" data-path="${path}" value="${esc(val)}">
+    ${f.hint?`<p class="hint">${f.hint}</p>`:''}</div>`;
+}
+
+function listHTML(g){
+  const rows = get(data, g.key) || [];
+  let h = '';
+  rows.forEach((row,i)=>{
+    const name = g.titleFrom && row[g.titleFrom] ? ' — ' + esc(row[g.titleFrom]) : '';
+    h += `<div class="item" data-idx="${i}">
+      <div class="item__hd"><b>${esc(g.itemLabel||'Item')} ${i+1}${name}</b>
+        <span class="sp">
+          <button type="button" class="iconbtn" data-move="${g.key}:${i}:-1" aria-label="Move up"${i===0?' disabled':''}>&#8593;</button>
+          <button type="button" class="iconbtn" data-move="${g.key}:${i}:1" aria-label="Move down"${i===rows.length-1?' disabled':''}>&#8595;</button>
+          <button type="button" class="iconbtn iconbtn--del" data-del="${g.key}:${i}" aria-label="Delete">&#10005;</button>
+        </span></div>
+      ${g.fields.map(f=>fieldHTML(f, `${g.key}.${i}.${f.k}`, row[f.k])).join('')}
+    </div>`;
+  });
+  if(rows.length < (g.max||99))
+    h += `<button type="button" class="btn btn--g add" data-add="${g.key}">+ Add ${esc((g.itemLabel||'item').toLowerCase())}</button>`;
+  return h;
+}
+
+function render(){
+  form.innerHTML = SCHEMA.map((g,gi)=>`
+    <details class="grp"${gi===0?' open':''}>
+      <summary>${esc(g.label)}${g.badge?`<span>${esc(g.badge)}</span>`:''}</summary>
+      <div class="grp__body">
+        ${g.list ? listHTML(g) : g.fields.map(f=>fieldHTML(f, `${g.key}.${f.k}`, get(data,`${g.key}.${f.k}`))).join('')}
+      </div>
+    </details>`).join('');
+}
+
+/* ---------- editing ---------- */
+form.addEventListener('input', e => {
+  const p = e.target.getAttribute('data-path');
+  if(!p) return;
+  const ks = p.split('.'), last = ks.pop();
+  const parent = ks.reduce((a,k)=> a==null?undefined:a[k], data);
+  if(parent) parent[last] = e.target.value;
+});
+
+form.addEventListener('click', e => {
+  const btn = e.target.closest('button'); if(!btn) return;
+  const open = [...form.querySelectorAll('details.grp')].map(d=>d.open);
+  if(btn.dataset.add){
+    const g = SCHEMA.find(x=>x.key===btn.dataset.add);
+    const blank = {}; g.fields.forEach(f=> blank[f.k]='');
+    (get(data,g.key) || set(data,g.key,[])) ; get(data,g.key).push(blank);
+  } else if(btn.dataset.del){
+    const [k,i] = btn.dataset.del.split(':');
+    const g = SCHEMA.find(x=>x.key===k);
+    const arr = get(data,k);
+    if(arr.length <= (g.min||0)){ say(`You need at least ${g.min} of these.`, 'err'); return; }
+    if(!confirm('Delete this item?')) return;
+    arr.splice(+i,1);
+  } else if(btn.dataset.move){
+    const [k,i,d] = btn.dataset.move.split(':');
+    const arr = get(data,k), from=+i, to=from+(+d);
+    if(to<0||to>=arr.length) return;
+    [arr[from],arr[to]] = [arr[to],arr[from]];
+  } else return;
+  render();
+  form.querySelectorAll('details.grp').forEach((d,i)=> d.open = open[i] ?? d.open);
+});
+
+/* ---------- image selection ---------- */
+form.addEventListener('change', async e => {
+  if(e.target.type !== 'file') return;
+  const file = e.target.files[0]; if(!file) return;
+  const target = e.target.getAttribute('data-target');
+  const safe = file.name.toLowerCase().replace(/[^a-z0-9.]+/g,'-').replace(/^-|-$/g,'');
+  const path = 'assets/' + safe;
+  const b64 = await new Promise((res,rej)=>{
+    const r = new FileReader();
+    r.onload = ()=> res(r.result.split(',')[1]);
+    r.onerror = rej; r.readAsDataURL(file);
+  });
+  pendingUploads.push({ path, b64 });
+  const ks = target.split('.'), last = ks.pop();
+  ks.reduce((a,k)=>a[k], data)[last] = path;
+  say(`<b>${esc(file.name)}</b> is queued as <code>${esc(path)}</code>. It uploads when you press Publish.`, 'info');
+  const open = [...form.querySelectorAll('details.grp')].map(d=>d.open);
+  render();
+  form.querySelectorAll('details.grp').forEach((d,i)=> d.open = open[i] ?? d.open);
+});
+
+/* ---------- GitHub ---------- */
+const tokenEl = $('#token'), repoEl = $('#repo'), branchEl = $('#branch'), tokState = $('#tokState');
+tokenEl.value = sessionStorage.getItem('cu_token') || '';
+repoEl.value  = localStorage.getItem('cu_repo')   || repoEl.value;
+branchEl.value= localStorage.getItem('cu_branch') || branchEl.value;
+function refreshTokState(){
+  const on = tokenEl.value.trim().length > 10;
+  tokState.textContent = on ? 'Token set' : 'Not connected';
+  tokState.className = 'state' + (on ? ' ok' : '');
+}
+tokenEl.addEventListener('input', ()=>{ sessionStorage.setItem('cu_token', tokenEl.value.trim()); refreshTokState(); });
+repoEl.addEventListener('input', ()=> localStorage.setItem('cu_repo', repoEl.value.trim()));
+branchEl.addEventListener('input', ()=> localStorage.setItem('cu_branch', branchEl.value.trim()));
+refreshTokState();
+
+async function gh(path, method, body){
+  const res = await fetch(`https://api.github.com/repos/${repoEl.value.trim()}/contents/${path}`, {
+    method,
+    headers: {
+      'Authorization': 'Bearer ' + tokenEl.value.trim(),
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if(res.status === 404 && method === 'GET') return null;
+  const json = await res.json().catch(()=>({}));
+  if(!res.ok) throw new Error(json.message || `${res.status} ${res.statusText}`);
+  return json;
+}
+
+async function putFile(path, contentB64, message){
+  const branch = branchEl.value.trim();
+  const existing = await gh(`${path}?ref=${encodeURIComponent(branch)}`, 'GET');
+  return gh(path, 'PUT', {
+    message, content: contentB64, branch,
+    ...(existing && existing.sha ? { sha: existing.sha } : {})
+  });
+}
+const toB64 = str => btoa(unescape(encodeURIComponent(str)));
+
+$('#publish').addEventListener('click', async () => {
+  if(!tokenEl.value.trim()){ say('Add a GitHub token first — see the box at the top.', 'err'); return; }
+  const btn = $('#publish'); btn.disabled = true; const label = btn.textContent;
+  try{
+    let n = 0;
+    while(pendingUploads.length){
+      const u = pendingUploads[0];
+      btn.textContent = `Uploading image ${n+1}…`;
+      await putFile(u.path, u.b64, `Add ${u.path} via content editor`);
+      pendingUploads.shift(); n++;
+    }
+    btn.textContent = 'Saving content…';
+    await putFile('content.json', toB64(JSON.stringify(data, null, 2)), 'Update content via editor');
+    say(`Published${n?` — ${n} image${n>1?'s':''} plus content.json`:''}. Vercel is rebuilding; the site updates in about a minute.`, 'ok');
+  }catch(err){
+    say('Publish failed: ' + esc(err.message) + '<br>Check the token has <b>Contents: Read and write</b> on this repo, and that the branch name is right.', 'err');
+  }finally{
+    btn.disabled = false; btn.textContent = label;
+  }
+});
+
+$('#download').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'content.json'; a.click();
+  URL.revokeObjectURL(a.href);
+  if(pendingUploads.length)
+    say(`Downloaded. Note: ${pendingUploads.length} queued image${pendingUploads.length>1?'s':''} are not in this file — commit them to <code>assets/</code> yourself, or use Publish instead.`, 'info');
+});
+
+window.addEventListener('beforeunload', e => {
+  if(pendingUploads.length){ e.preventDefault(); e.returnValue = ''; }
+});
+
+/* ---------- boot ---------- */
+fetch('../content.json', {cache:'no-store'})
+  .then(r => { if(!r.ok) throw new Error('content.json returned ' + r.status); return r.json(); })
+  .then(json => { data = json; render(); })
+  .catch(err => {
+    say('Could not load content.json: ' + esc(err.message)
+      + '<br>If you opened this file straight from disk, browsers block the read. Run <code>npx serve</code> in the project folder and open <code>localhost:3000/admin/</code> instead.', 'err');
+  });
+</script>
+</body>
+</html>

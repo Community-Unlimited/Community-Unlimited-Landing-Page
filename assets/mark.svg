@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283 293" width="283" height="293" role="img" aria-label="Community Unlimited mark">
+  <defs>
+    <mask id="cmask" maskUnits="userSpaceOnUse" x="0" y="0" width="283" height="293">
+      <path d="M203.66 51.84A107 107 0 1 0 203.66 203.16" fill="none" stroke="#fff" stroke-width="42"/>
+    </mask>
+  </defs>
+  <path d="M203.66 51.84A107 107 0 1 0 203.66 203.16" fill="none" stroke="#3CBFB8" stroke-width="42"/>
+  <path d="M133.5 121v88a66 66 0 0 0 132 0v-88" fill="none" stroke="#EA5C2A" stroke-width="34"/>
+  <g mask="url(#cmask)">
+    <path d="M133.5 121v88a66 66 0 0 0 132 0v-88" fill="none" stroke="#964E1E" stroke-width="34"/>
+  </g>
+</svg>

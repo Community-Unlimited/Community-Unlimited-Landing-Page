@@ -1,0 +1,135 @@
+{
+  "contact": {
+    "whatsappNumber": "6580000000",
+    "whatsappMessage": "Hi Community Unlimited, I'd like to join",
+    "phoneNumber": "+6580000000",
+    "phoneLabel": "8000 0000"
+  },
+  "hero": {
+    "eyebrow": "Community Unlimited · Boon Lay",
+    "headlineLine1": "Community",
+    "headlineLine2": "Without Limits",
+    "subhead": "Ageing with purpose, together.",
+    "note": "Free to join · No app to download · Walk-ins welcome",
+    "image": "assets/hero.webp",
+    "imageAlt": "An older woman and a younger woman laughing together at a neighbourhood gathering"
+  },
+  "purpose": {
+    "eyebrow": "Our purpose",
+    "statementBefore": "Seniors ageing with purpose, through ",
+    "statementEmphasis": "mutual support",
+    "statementAfter": " in their own neighbourhood.",
+    "body": "Singapore's population is ageing, and support for it sits in too many separate places. Community Unlimited puts it back where it belongs — in the neighbourhood, run by the people who live there."
+  },
+  "pillars": [
+    {
+      "title": "Connect & contribute",
+      "body": "Bringing healthy, active seniors together to create events and shared experiences of their own."
+    },
+    {
+      "title": "Purpose after retirement",
+      "body": "Challenging the stigma around ageing. Asking for help is normal here — and so is giving it."
+    },
+    {
+      "title": "One-stop simplicity",
+      "body": "One community-based way in, instead of a maze of schemes, forms and phone numbers."
+    },
+    {
+      "title": "Inclusive by design",
+      "body": "Adaptable support for every senior — from the tech-savvy to those who'd rather just be told in person."
+    }
+  ],
+  "quote": {
+    "text": "Age is just a number.",
+    "caption": "You can stay vibrant at every stage. That belief runs through everything we run — every walk, every shift, every kopi session.",
+    "image": "assets/band.webp",
+    "imageAlt": "Neighbours greeting each other with raised hands outside a block of flats"
+  },
+  "pathway": {
+    "eyebrow": "How it works",
+    "heading": "Five steps from joining to leading",
+    "intro": "Everyone starts as a neighbour. Where you go after that is up to you — most people stop at step three, and that's a good place to stop.",
+    "steps": [
+      { "label": "STEP 01", "title": "Register", "body": "Message us on WhatsApp. We'll ask your name, your block, and what you enjoy." },
+      { "label": "STEP 02", "title": "Train", "body": "Short, practical sessions run by neighbours who already do the thing." },
+      { "label": "STEP 03", "title": "Qualify", "body": "A friendly sign-off so everyone knows you're ready. No exams." },
+      { "label": "STEP 04", "title": "Deploy", "body": "Take real shifts at real events, at a pace that suits your week." },
+      { "label": "STEP 05", "title": "Lead", "body": "Run your own session and bring the next group of neighbours through." }
+    ]
+  },
+  "whatsOn": {
+    "eyebrow": "What's on",
+    "heading": "This week in the neighbourhood",
+    "intro": "Come once and see. Nothing to sign up for in advance.",
+    "events": [
+      {
+        "when": "Every Sat · 7am",
+        "title": "Neighbourhood Morning Walk",
+        "body": "An easy 40 minutes around the estate, then breakfast. Any pace — someone always walks at the back.",
+        "ctaLabel": "Join this walk",
+        "image": "assets/ev-walk.webp",
+        "imageAlt": "A group of residents exercising together outside their block in the morning"
+      },
+      {
+        "when": "Tue & Thu · 9am–12pm",
+        "title": "Community Barista shift",
+        "body": "Learn the machine, then pull coffee for the morning crowd. Training on the first two shifts.",
+        "ctaLabel": "Take a shift",
+        "image": "assets/ev-barista.webp",
+        "imageAlt": "Residents working together at a table at a community activity"
+      },
+      {
+        "when": "Every Wed · 3pm",
+        "title": "Kopi & Catch-up",
+        "body": "Sit down, talk, meet the block. Bring a neighbour who hasn't been out this week.",
+        "ctaLabel": "Come along",
+        "image": "assets/ev-kopi.webp",
+        "imageAlt": "Neighbours sitting together and chatting in a bright common space"
+      }
+    ]
+  },
+  "who": {
+    "eyebrow": "Who it's for",
+    "heading": "Built with seniors, open to everyone around them",
+    "tiers": [
+      {
+        "tag": "Primary",
+        "title": "Seniors",
+        "body": "Active adults aged 60–70 seeking purpose, connection, and a way to keep contributing.",
+        "image": "assets/who-seniors.webp",
+        "imageAlt": "An older man smiling among a group of younger residents"
+      },
+      {
+        "tag": "Secondary",
+        "title": "Families & care networks",
+        "body": "Children of ageing parents and the wider network of people helping them day to day.",
+        "image": "assets/who-families.webp",
+        "imageAlt": "A daughter helping her father at home"
+      },
+      {
+        "tag": "Tertiary",
+        "title": "Stakeholders & partners",
+        "body": "Grassroots and government bodies, care providers, and corporate or philanthropic partners.",
+        "image": "assets/who-partners.webp",
+        "imageAlt": "Three residents laughing together at a community event"
+      }
+    ]
+  },
+  "join": {
+    "eyebrow": "Get involved",
+    "heading": "Send one message. We'll do the rest.",
+    "body": "Tell us your name and your block. Someone from your neighbourhood will reply, usually the same day.",
+    "primaryCta": "Message on WhatsApp",
+    "facts": [
+      { "label": "Where", "value": "Boon Lay, Singapore" },
+      { "label": "Reply time", "value": "Usually the same day" },
+      { "label": "Cost", "value": "Free, always" },
+      { "label": "Bring", "value": "Yourself, or a neighbour" }
+    ]
+  },
+  "footer": {
+    "domain": "communityunlimited.sg",
+    "social": "community.unltd",
+    "hashtag": "#CommunityWithoutLimits"
+  }
+}
