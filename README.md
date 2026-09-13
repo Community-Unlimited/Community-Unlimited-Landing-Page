@@ -130,17 +130,66 @@ with a landscape-composed hero photograph and that one CSS rule can go.
 
 ---
 
+## `/new` — the loud one
+
+`new.html` is served at **`/new`**. Standalone like `/qa`: no `content.json`
+fetch, nothing on `/` or `/qa` imports from it, and all three routes are
+independent. Lowercase, and the URL is case-sensitive.
+
+It answers the note that the seniors themselves called the site "quite old and
+simple". Same content and the same approved body copy as `/qa` — the change is
+entirely energy.
+
+**What makes it louder**
+
+- **Dark ground**, near-black `#04100E`, with full-bleed Energised Orange blocks
+  instead of white-and-mint.
+- **Bricolage Grotesque** at weight 800, set wide and tracked tight. The
+  variable width axis is doing most of the "this is not an AAC poster" work.
+- **Hero** is full-bleed with a parallax plate and a headline that fills the
+  screen. The last word of "Nowhere near done." cycles through
+  done / finished / quiet / over.
+- **Sticky card stack** for the three mindsets — they pin and pile on top of
+  each other as you scroll. This is the signature moment.
+- **Two marquees** running opposite directions.
+- **Horizontal snap rail** for the five steps: swipe on touch, arrows and arrow
+  keys on desktop.
+- **Scroll progress bar**, word-by-word heading reveals, a faint pointer
+  spotlight, and lift-and-tilt on every card.
+
+**What does not bend**
+
+The audience is still 60–70. Body stays 19px, tap targets stay 48px+, every
+contrast pair still meets AA, and `prefers-reduced-motion: reduce` switches the
+whole thing off — marquees stop dead, the cycler settles on one word, parallax
+and spotlight are removed, the sticky stack falls back to normal flow, and every
+reveal renders in place. Motion sensitivity rises with age; an edgy page that
+ignores that setting is just an unusable page.
+
+Two contrast decisions worth knowing, both forced by measurement:
+
+- **Orange panels carry dark text, not white.** White on `#EA5C2A` is 3.46:1,
+  which only clears AA as large text — so the join block, the marquee and the
+  tier tags use near-black on orange at 5.58:1. It also hits harder.
+- **Step labels use `#FF7A47`, not `#EA5C2A`.** Brand orange on the dark card
+  was 4.23:1, just under AA for a 13px label.
+
+`/new` is `noindex` in the page head, `robots.txt` and `vercel.json`.
+
+---
+
 ## Files
 
 ```
 index.html          the landing page
 qa.html             the /qa exploration build (standalone, noindex)
+new.html            the /new exploration build — louder, heavier motion
 content.json        all editable content (feeds index.html only)
 admin/index.html    the content editor
 assets/             photography (WebP) + mark.svg
 assets/brand/       logo lockups (PNG) for decks and print
 vercel.json         caching + security headers
-robots.txt          keeps /admin and /qa out of search
+robots.txt          keeps /admin, /qa and /new out of search
 ```
 
 ---
