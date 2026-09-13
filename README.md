@@ -63,16 +63,84 @@ To add a new editable field: add it to `content.json`, tag the element in
 
 ---
 
+## `/qa` — the exploration build
+
+`qa.html` is served at **`/qa`** (Vercel's `cleanUrls` strips the extension).
+URLs are case-sensitive, so `/QA` is redirected to `/qa` in `vercel.json`.
+It is a **standalone** page: it does not fetch `content.json` and nothing on
+`/` imports from it. Editing content in `/admin` changes the live page only —
+`/qa` is untouched, and vice versa.
+
+It exists to answer the 5 Sep feedback deck and the note that the site is
+"clean, but a little plastic-ky". What changed:
+
+**From the feedback deck**
+
+| Slide | Change |
+|---|---|
+| 1 | Hero runs to a 1520px frame instead of 1180px, so it uses far more of the screen |
+| 2 | Hero heading reduced ~10%, two lines, tight leading (and now reads `Community Unlimited`) |
+| 3 | Band caption box widened to the title's width; `Get involved` + `See what's on` buttons added |
+| 4–5 | Purpose section rebuilt as **Option 2** — photo left, icon accordion right |
+| 6 | Each pathway step has an icon; steps fade in one at a time on scroll (150ms apart) |
+| 7 | `Who it's for` moved up, now directly after the purpose section |
+| 8 | On mobile the pathway rail stands on its end — a vertical line with the icons as nodes |
+| 9 | Mobile hero: taller photo, panel overlaps it by 24px, heading −10%, tighter spacing, both CTAs full-width and equal, supporting text clamped to two lines, reduced bottom padding, one radius on all four corners |
+
+**From the brief** — "Community Unlimited", not "Community Without Limits";
+speak to people who have just retired or are about to; think older, feel younger.
+
+- Hero headline is now the brand name. The hashtag follows: `#CommunityUnlimited`.
+- New **"Which one are you?"** section, second on the page. It names the three
+  mindsets from the brief in the words people actually use, and answers each
+  one. This is the part doing the work against "doesn't feel special".
+- `Age is just a number.` replaced with **`Think older. Feel younger.`** The
+  original is the line an AAC poster uses; that was half the plastic feeling.
+- Hero subhead: `Retired from work. Nowhere near done.`
+- A running noticeboard strip under the hero, so the week reads as live.
+- `Who it's for` tags changed from `Primary / Secondary / Tertiary` to
+  `If this is you / If this is your parent / If you want to back it`. The
+  three groups and their copy are unchanged — those labels are a funder's
+  hierarchy, not something to show a 63-year-old.
+
+**Three deliberate deviations from Brand Guide v0.7**, on top of the three the
+live page already documents below:
+
+- **Fraunces for display type**, Inter kept for everything you read. Inter
+  everywhere is what makes a page read "standard website"; a soft serif at
+  large sizes is warm and a bit upmarket without being fussy. Body copy stays
+  Inter at 19px for legibility.
+- **Warm paper ground** `#FCFAF6` and a sand tone `#F4EEE4` instead of pure
+  white and mint everywhere. Flat mint on white is the clinical, institutional
+  look the feedback was reacting to.
+- **Film grain** over the dark fields and the photography, and a mild
+  desaturation on the photos. It unifies eight separately-generated images and
+  stops large flat colour reading as plastic.
+
+Every contrast pair still meets AA: orange is never used below 20px/600,
+bronze `#964E1E` remains the small-text accent.
+
+**Known compromise:** `assets/hero.webp` is a 1600×1000 portrait-ish
+composition. At the new full-width crop there is no horizontal slack, so the
+senior — the primary audience — ends up behind the emerald panel. The plate is
+mirrored on desktop (`transform:scaleX(-1)`) to put her clear of it. Replace it
+with a landscape-composed hero photograph and that one CSS rule can go.
+
+`/qa` is `noindex` in the page head, in `robots.txt` and in `vercel.json`.
+
+---
+
 ## Files
 
 ```
 index.html          the landing page
-content.json        all editable content
+qa.html             the /qa exploration build (standalone, noindex)
+content.json        all editable content (feeds index.html only)
 admin/index.html    the content editor
 assets/             photography (WebP) + mark.svg
 assets/brand/       logo lockups (PNG) for decks and print
 vercel.json         caching + security headers
-robots.txt          keeps /admin out of search
+robots.txt          keeps /admin and /qa out of search
 ```
 
 ---
