@@ -181,6 +181,7 @@ Two contrast decisions worth knowing, both forced by measurement:
 ## Files
 
 ```
+CLAUDE.md           repo conventions and accessibility floors
 index.html          the landing page
 qa.html             the /qa exploration build (standalone, noindex)
 new.html            the /new exploration build — louder, heavier motion
