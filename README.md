@@ -63,12 +63,13 @@ To add a new editable field: add it to `content.json`, tag the element in
 
 ---
 
-## `/QA` — the exploration build
+## `/qa` — the exploration build
 
-`QA.html` is served at **`/QA`** (Vercel's `cleanUrls` strips the extension).
+`qa.html` is served at **`/qa`** (Vercel's `cleanUrls` strips the extension).
+URLs are case-sensitive, so `/QA` is redirected to `/qa` in `vercel.json`.
 It is a **standalone** page: it does not fetch `content.json` and nothing on
 `/` imports from it. Editing content in `/admin` changes the live page only —
-`/QA` is untouched, and vice versa. The URL is case-sensitive.
+`/qa` is untouched, and vice versa.
 
 It exists to answer the 5 Sep feedback deck and the note that the site is
 "clean, but a little plastic-ky". What changed:
@@ -125,7 +126,7 @@ senior — the primary audience — ends up behind the emerald panel. The plate 
 mirrored on desktop (`transform:scaleX(-1)`) to put her clear of it. Replace it
 with a landscape-composed hero photograph and that one CSS rule can go.
 
-`/QA` is `noindex` in the page head, in `robots.txt` and in `vercel.json`.
+`/qa` is `noindex` in the page head, in `robots.txt` and in `vercel.json`.
 
 ---
 
@@ -133,13 +134,13 @@ with a landscape-composed hero photograph and that one CSS rule can go.
 
 ```
 index.html          the landing page
-QA.html             the /QA exploration build (standalone, noindex)
+qa.html             the /qa exploration build (standalone, noindex)
 content.json        all editable content (feeds index.html only)
 admin/index.html    the content editor
 assets/             photography (WebP) + mark.svg
 assets/brand/       logo lockups (PNG) for decks and print
 vercel.json         caching + security headers
-robots.txt          keeps /admin and /QA out of search
+robots.txt          keeps /admin and /qa out of search
 ```
 
 ---

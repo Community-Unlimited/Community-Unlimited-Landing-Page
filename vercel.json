@@ -2,6 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/QA", "destination": "/qa", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -22,13 +25,13 @@
       ]
     },
     {
-      "source": "/QA",
+      "source": "/qa",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]
     },
     {
-      "source": "/QA.html",
+      "source": "/qa.html",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]

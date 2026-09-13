@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-Disallow: /QA
+Disallow: /qa
 
 Sitemap: https://communityunlimited.sg/sitemap.xml
