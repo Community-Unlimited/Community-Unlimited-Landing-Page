@@ -53,7 +53,14 @@ The audience is 60–70 year olds. These do not bend for visual ambition:
   - On orange fills use **near-black text** (5.58:1), not white.
   - `#964E1E` is the small-text accent on light grounds (6.2:1).
   - `#FF7A47` where brand orange is too dark against a dark card.
-- `prefers-reduced-motion: reduce` must switch animation **off**, not down.
+- `prefers-reduced-motion: reduce` must switch animation **off**, not down,
+  and what replaces it must be **static** — never a scroll container.
+  Swapping a marquee's animation for `overflow-x: auto` leaves a dead strip
+  with a native scrollbar under it, which reads as a broken widget. Wrap the
+  content and hide any duplicate copy that existed only to make the loop
+  seamless. Headless Chromium uses invisible overlay scrollbars, so this class
+  of bug does **not** show up in scripted screenshots — check the computed
+  `overflow-x` and `scrollWidth > clientWidth`, not just the picture.
   Motion sensitivity rises with age. Verify it rather than assuming the media
   query covered everything.
 
@@ -68,6 +75,10 @@ The audience is 60–70 year olds. These do not bend for visual ambition:
 - `overflow-x: hidden` on `body` breaks `position: sticky`. Use `clip`.
 - `scroll-behavior: smooth` makes scripted `scrollTo` measurements read stale.
   Set `scrollBehavior = 'auto'` before measuring in a browser test.
+- Content that is `white-space: nowrap` inside a flex row next to a fixed-width
+  sibling can overflow its container and be **silently clipped** by an ancestor's
+  `overflow: hidden` — no scrollbar, no error, just missing text. The `/qa`
+  ticker lost an item this way at phone width.
 - `assets/hero.webp` is 1600×1000, composed as a portrait. At full-bleed crops
   the senior — the primary audience — falls out of frame, and both exploration
   pages carry a workaround. A landscape-composed hero photograph retires both.
