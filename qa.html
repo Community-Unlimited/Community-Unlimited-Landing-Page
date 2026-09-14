@@ -345,13 +345,29 @@ section[id],figure[id]{scroll-margin-top:96px}
 .hero__panel{animation:hPanel .85s var(--ease) .18s both}
 @keyframes hPhoto{from{opacity:0;transform:scale(1.03)}to{opacity:1;transform:none}}
 @keyframes hPanel{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce) and (max-width:620px){
+  .tick__pill{flex:1 1 100%;padding:.5rem var(--gut)}
+  .tick__vp{flex:1 1 100%}
+  .tick__row{padding-inline:var(--gut) !important}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0ms!important;
     animation-iteration-count:1!important;transition-duration:.001ms!important}
   .rise{opacity:1;transform:none}
-  .tick__vp{overflow-x:auto}
-  .tick__row{animation:none}
+  /* Noticeboard goes static, NOT manually scrollable. Turning it into a
+     scroll container leaves a dead strip with a native scrollbar under it,
+     which reads as a broken widget rather than a considerate fallback.
+     Wrap the real items instead and drop the duplicate loop copy. */
+  .tick__in{flex-wrap:wrap;min-height:0}
+  .tick__vp{overflow:visible;-webkit-mask-image:none;mask-image:none}
+  .tick__row{animation:none;width:auto;flex-wrap:wrap;
+    padding-block:.45rem;padding-inline:0 var(--gut)}
+  .tick__row span{line-height:1.55;padding:.28rem 1.1rem .28rem 0;white-space:normal}
+  .tick__row span[aria-hidden="true"]{display:none}
+  .tick__row span::after{margin-left:1.1rem}
+  .tick__row span:nth-child(4)::after{display:none}
+  .tick__pill{padding-block:.8rem}
 }
 </style>
 </head>

@@ -327,8 +327,14 @@ section[id],figure[id]{scroll-margin-top:88px}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0ms!important;
     animation-iteration-count:1!important;transition-duration:.001ms!important}
-  .mq__row{animation:none!important;transform:none!important}
-  .mq{overflow-x:auto}
+  /* Marquee goes static, NOT manually scrollable. A scroll container here
+     leaves a dead strip with a native scrollbar under it — reads as broken.
+     Children 8..16 are the trailing separator and the duplicate loop copy
+     that only exist to make the animation seamless; hide them. */
+  .mq__row{animation:none!important;transform:none!important;width:auto;
+    flex-wrap:wrap;row-gap:.1rem;padding-inline:max(0px,calc(var(--gut) - 1.1rem))}
+  .mq__row>*:nth-child(n+8){display:none}
+  .mq{overflow:hidden}
   .rise{opacity:1;transform:none}
   .sp{overflow:visible}
   .sp>i{transform:none!important}
