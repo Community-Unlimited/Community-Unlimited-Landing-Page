@@ -119,10 +119,32 @@ section[id],figure[id]{scroll-margin-top:88px}
 .hero{position:relative;overflow:hidden;min-height:min(94svh,880px);display:grid;align-items:end;
   padding-block:clamp(3rem,9vw,6rem) clamp(2rem,5vw,3.5rem);isolation:isolate}
 .hero__bg{position:absolute;inset:-12% 0 -12%;z-index:-2;will-change:transform}
-.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:38% 28%;filter:saturate(.78) contrast(1.08)}
-@media (min-width:760px){.hero__bg img{object-position:50% 30%}}
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:64% 40%;filter:saturate(.82) contrast(1.06)}
+@media (min-width:760px){.hero__bg img{object-position:58% 42%}}
+/* Scrim. The old full-width vertical wash sat at .55 right through the
+   middle of the frame, which buried both faces. Keep the band where the
+   people are light, and put the darkness where the copy actually is. */
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,rgba(4,16,14,.62) 0%,rgba(4,16,14,.55) 34%,rgba(4,16,14,.94) 82%,var(--void) 100%)}
+  background:linear-gradient(180deg,
+    rgba(4,16,14,.52) 0%,
+    rgba(4,16,14,.18) 24%,
+    rgba(4,16,14,.26) 40%,
+    rgba(4,16,14,.82) 56%,
+    rgba(4,16,14,.95) 76%,
+    var(--void) 100%)}
+@media (min-width:1200px){
+  /* Wide enough for the copy to live in the left column: weight the scrim
+     left so the pair on the right of the plate stays bright. */
+  .hero::after{background:
+    linear-gradient(90deg,rgba(4,16,14,.93) 0%,rgba(4,16,14,.9) 34%,rgba(4,16,14,.42) 48%,
+      rgba(4,16,14,.1) 62%,rgba(4,16,14,0) 76%),
+    linear-gradient(180deg,rgba(4,16,14,.42) 0%,rgba(4,16,14,.1) 30%,rgba(4,16,14,.2) 60%,
+      rgba(4,16,14,.72) 88%,var(--void) 100%)}
+  /* Two lines AND a shorter measure. Once the clamp maxes out the headline is
+     a fixed ~650px, so as a fraction of the viewport it only clears the pair
+     above ~1440px. Trimming the size keeps it clear from 1200px up. */
+  .hero .h1{max-width:8ch;font-size:clamp(3.5rem,8vw,6.5rem)}
+}
 .hero__in{position:relative;z-index:2;max-width:var(--wide);margin-inline:auto;padding-inline:var(--gut);width:100%}
 .hero .kicker{margin-bottom:1.1rem}
 .hero .h1{margin-bottom:.35rem}
@@ -138,6 +160,17 @@ section[id],figure[id]{scroll-margin-top:88px}
 @media (max-width:560px){
   .hero__cta{display:grid;grid-template-columns:1fr;gap:.65rem}
   .hero__cta .btn{width:100%}
+}
+/* Phones: a full-bleed hero can only show a ~30% slice of a landscape plate,
+   and the copy then sits straight over whoever is in it. Stack instead —
+   image band, then copy on solid ground. Both faces stay visible and the
+   text keeps real contrast. */
+@media (max-width:1199px){
+  .hero{min-height:0;display:block;padding-block:0 clamp(1.75rem,6vw,2.5rem)}
+  .hero__bg{position:relative;inset:auto;z-index:0;aspect-ratio:4/3;will-change:auto}
+  .hero__bg img{object-position:58% 46%}
+  .hero::after{display:none}
+  .hero__in{padding-top:clamp(1.5rem,5vw,2rem)}
 }
 
 /* ---------- Marquee ------------------------------------------------ */
@@ -374,7 +407,7 @@ section[id],figure[id]{scroll-margin-top:88px}
 <main id="main">
 
   <section class="hero" id="top" aria-labelledby="hero-h">
-    <div class="hero__bg" id="heroBg"><img src="/assets/hero.webp" alt="An older woman and a younger woman laughing together at a neighbourhood gathering" fetchpriority="high"></div>
+    <div class="hero__bg" id="heroBg"><img src="/assets/hero-wide.webp" alt="An older woman and a younger woman sitting together at a table in a bright community space, smiling" fetchpriority="high"></div>
     <div class="hero__in">
       <p class="kicker">Boon Lay · No forms to fill</p>
       <h1 class="d h1" id="hero-h" data-split>Community Unlimited</h1>
@@ -714,11 +747,15 @@ section[id],figure[id]{scroll-margin-top:88px}
 
   /* --- one scroll handler for the bar + hero parallax --- */
   var prog=document.getElementById('prog'), heroBg=document.getElementById('heroBg'), ticking=false;
+  var wide=window.matchMedia('(min-width:1200px)');
+  wide.addEventListener('change',function(){ if(heroBg) heroBg.style.transform=''; });
   function onScroll(){
     var y=window.scrollY||window.pageYOffset;
     var h=document.documentElement.scrollHeight-window.innerHeight;
     prog.style.transform='scaleX('+(h>0?Math.min(y/h,1):0)+')';
-    if(!reduce && heroBg && y<window.innerHeight*1.2){
+    // only while the plate is the absolutely-positioned full-bleed one;
+    // on phones it is an in-flow band and must not be dragged
+    if(!reduce && heroBg && wide.matches && y<window.innerHeight*1.2){
       heroBg.style.transform='translate3d(0,'+(y*0.22)+'px,0)';
     }
     ticking=false;

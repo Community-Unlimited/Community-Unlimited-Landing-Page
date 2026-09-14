@@ -25,7 +25,7 @@ editor.
 |---|---|---|
 | `/` | `index.html` | The live page. Hydrates from `content.json`; `/admin` publishes to it. |
 | `/qa` | `qa.html` | Exploration build — warm, editorial, Fraunces display type. |
-| `/new` | `new.html` | Exploration build — dark, loud, heavy motion. |
+| `/new` | `new.html` | Exploration build — dark, loud, heavy motion. Hero stacks below 1200px. |
 | `/admin` | `admin/index.html` | Content editor. Writes `content.json` only. |
 
 Exploration pages are **standalone**: no `content.json` fetch, and nothing on
@@ -79,9 +79,22 @@ The audience is 60–70 year olds. These do not bend for visual ambition:
   sibling can overflow its container and be **silently clipped** by an ancestor's
   `overflow: hidden` — no scrollbar, no error, just missing text. The `/qa`
   ticker lost an item this way at phone width.
-- `assets/hero.webp` is 1600×1000, composed as a portrait. At full-bleed crops
-  the senior — the primary audience — falls out of frame, and both exploration
-  pages carry a workaround. A landscape-composed hero photograph retires both.
+- **Two hero plates, on purpose.** `/` uses `assets/hero.webp` (1600×1000,
+  portrait composition). `/qa` and `/new` use `assets/hero-wide.webp`
+  (1190×896, landscape, pair on the right with clear space left). The old
+  plate needed a `scaleX(-1)` mirror on desktop to keep the senior out from
+  behind the panel; that hack is gone. Do **not** overwrite `hero.webp` —
+  that is the live page's image.
+- **What decides whether overlaid copy covers the subject is the headline's
+  width as a *fraction* of the viewport, not its pixel width.** Once a
+  `clamp()` maxes out, a headline is a fixed ~650px: that is 43% of 1512px
+  and clears a subject starting at 46%, but 57% of 900px and lands straight
+  on them. Check the narrow end of the range, not just your own screen.
+- **A full-bleed landscape plate cannot carry overlaid copy on a phone.** At
+  390px a tall hero crops a landscape image to a ~30% slice of its width, so
+  a subject group spanning ~50% cannot fit at all, and the copy lands on
+  whoever is left. `/new` stacks below 1200px — image band, then copy on
+  solid ground — instead of pretending.
 
 ## Testing
 

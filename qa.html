@@ -136,7 +136,7 @@ section[id],figure[id]{scroll-margin-top:96px}
 .hero{padding-top:clamp(16px,2.2vw,34px);padding-bottom:clamp(6px,1.6vw,22px)}
 .hero__grid{position:relative;max-width:var(--wide);margin-inline:auto;padding-inline:var(--gut)}
 .hero__photo{border-radius:var(--r-lg)}
-.hero__photo img{aspect-ratio:14/11;object-position:50% 26%}
+.hero__photo img{aspect-ratio:14/11;object-position:62% 42%}
 .hero__photo::before{content:"";position:absolute;inset:0;z-index:1;
   background:linear-gradient(180deg,rgba(5,53,49,0) 42%,rgba(5,53,49,.5) 100%)}
 .hero__cap{position:absolute;right:14px;bottom:13px;z-index:2;color:#fff;
@@ -157,7 +157,7 @@ section[id],figure[id]{scroll-margin-top:96px}
 @media (min-width:1000px){
   .hero__grid{display:grid;grid-template-columns:minmax(0,1fr)}
   .hero__photo{grid-area:1/1;align-self:stretch;min-height:clamp(460px,43vw,610px)}
-  .hero__photo img{aspect-ratio:auto;position:absolute;inset:0;transform:scaleX(-1);object-position:50% 18%}
+  .hero__photo img{aspect-ratio:auto;position:absolute;inset:0;object-position:50% 45%}
   .hero__cap{right:22px;bottom:20px;font-size:.75rem;letter-spacing:.14em}
   .hero__panel{grid-area:1/1;align-self:center;justify-self:start;width:min(47%,548px);
     margin:clamp(26px,3vw,44px) 0 clamp(26px,3vw,44px) clamp(14px,3vw,54px);
@@ -397,7 +397,7 @@ section[id],figure[id]{scroll-margin-top:96px}
   <section class="hero" id="top" aria-labelledby="hero-h">
     <div class="hero__grid">
       <figure class="hero__photo ph">
-        <img src="/assets/hero.webp" alt="An older woman and a younger woman laughing together at a neighbourhood gathering" fetchpriority="high">
+        <img src="/assets/hero-wide.webp" alt="An older woman and a younger woman sitting together at a table in a bright community space, smiling" fetchpriority="high">
         <figcaption class="hero__cap">Boon Lay · Wednesday kopi</figcaption>
       </figure>
       <div class="hero__panel onDark grain">
