@@ -41,6 +41,30 @@ Each exploration route carries `noindex` in three places: the page `<head>`,
 `robots.txt`, and a header rule in `vercel.json`. Scope the `vercel.json` rule
 to the exact path so it cannot leak onto `/`.
 
+## Vocabulary: NextGen, never "seniors"
+
+The public identity on `/qa` and `/new` is **NextGen**. Do not reintroduce
+"seniors", "older adults", "silver", or any age band into copy a visitor reads.
+The reasoning, from the client: the barrier is not chronological age, it is the
+identity you are asking someone to adopt. Labelling the robust end of this group
+as "seniors", or printing "60–70", is what turns exactly the people CU wants
+away.
+
+| Layer | Wording |
+|---|---|
+| Public identity | **NextGen** — "Experienced. Active. Curious. Still contributing. Not defined by age — defined by what comes next." |
+| Collective | The NextGen community |
+| Policy / funder language | Robust Seniors — fine in proposals, not on the page |
+| Operational definition | Capability and willingness to contribute, **not** an age cut-off |
+| Internal planning | Age bands (60–69, 70–79, 80+) are fine in comments, specs and this file |
+
+So recruitment copy reads "people with experience, energy and a little time to
+spare", not "seniors aged 60–70".
+
+The age reference in the accessibility rules below is **internal engineering
+rationale** — it is why the type is 19px and why reduced-motion matters. That
+one stays. It must never surface in page copy.
+
 ## Non-negotiables
 
 The audience is 60–70 year olds. These do not bend for visual ambition:
