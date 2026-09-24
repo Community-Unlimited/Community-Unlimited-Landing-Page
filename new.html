@@ -330,6 +330,37 @@ section[id],figure[id]{scroll-margin-top:88px}
 .ev p{font-size:1.0625rem;line-height:1.5;color:var(--mint);margin-bottom:1.3rem}
 .ev .btn{margin-top:auto;align-self:flex-start}
 
+/* ---------- Our team -----------------------------------------------
+   The photo is the loud part: it arrives oversized and settles, and an
+   orange sticker names the shift. Roles are numbered like the mindset
+   cards so the page keeps one voice. No names or headcount invented. */
+.team{background:var(--deep);overflow:hidden}
+.team__g{display:grid;gap:clamp(2.25rem,5vw,4.5rem);grid-template-columns:1fr}
+.team__ph{position:relative;overflow:hidden;border-radius:26px;aspect-ratio:4/5;
+  background:var(--emerald);border:1px solid var(--line-hi)}
+.team__ph img{width:100%;height:100%;object-fit:cover;object-position:48% 38%;
+  filter:saturate(.85) contrast(1.06);transform:scale(1.14);transition:transform 1.4s var(--ease)}
+.team__ph.in img{transform:none}
+.team__ph::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(4,16,14,0) 58%,rgba(4,16,14,.7))}
+.team__tag{position:absolute;left:16px;bottom:18px;z-index:2;background:var(--orange);color:var(--void);
+  font-family:var(--d);font-weight:800;font-size:1.25rem;line-height:1.2;letter-spacing:-.01em;
+  padding:.5rem 1.05rem;border-radius:999px;transform:rotate(-4deg);transform-origin:0 100%}
+.team .sec__head{margin-bottom:0}
+.team .kicker{font-size:.8125rem}
+.team .h2{font-size:clamp(2.3rem,5.4vw,4rem)}
+.crew{margin-top:clamp(1.75rem,3vw,2.25rem);border-top:1px solid var(--line-hi)}
+.crew li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.25rem 1.25rem;align-items:baseline;
+  padding:1.15rem 0 1.25rem;border-bottom:1px solid var(--line-hi)}
+.crew__n{grid-row:span 2;font-family:var(--d);font-weight:800;font-size:clamp(1.75rem,3vw,2.25rem);line-height:1;
+  color:transparent;-webkit-text-stroke:1.5px var(--teal);min-width:2.1ch}
+.crew p{grid-column:2;font-size:1.0625rem;line-height:1.5;color:var(--mint)}
+.team__cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:clamp(1.75rem,3vw,2.25rem)}
+@media (min-width:960px){
+  .team__g{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center}
+  .team__tag{left:22px;bottom:24px}
+}
+
 /* ---------- Join --------------------------------------------------- */
 .join{position:relative;overflow:hidden;background:var(--orange);color:var(--void);padding-block:clamp(4rem,9vw,7rem)}
 .join .h2{margin-bottom:1.1rem;max-width:16ch}
@@ -378,6 +409,7 @@ section[id],figure[id]{scroll-margin-top:88px}
   .cyc__w{position:absolute;opacity:0}
   .cyc__w:first-child{position:static;opacity:1;transform:none}
   .hero__bg{transform:none!important;inset:0}
+  .team__ph img{transform:none!important}
   .spot{display:none}
   .prog{transition:none}
   .stack>li{position:static}
@@ -618,6 +650,37 @@ section[id],figure[id]{scroll-margin-top:88px}
     </div>
   </section>
 
+  <!-- ============ Our team ============ -->
+  <section class="sec team grain" id="team" aria-labelledby="team-h">
+    <div class="shell team__g">
+      <figure class="team__ph rise">
+        <img src="/assets/team.webp" alt="A man with white hair in a leather apron, laughing as he tamps fresh espresso behind a busy café counter" loading="lazy">
+        <figcaption class="team__tag">On shift</figcaption>
+      </figure>
+      <div>
+        <div class="sec__head rise">
+          <p class="kicker">Our team</p>
+          <h2 class="d h2" id="team-h" data-split>Behind the counter? Your neighbours.</h2>
+          <p class="lead">The NextGen community runs all of this, from the coffee machine to the WhatsApp line. Every one of them started the way you would — by coming along once.</p>
+        </div>
+        <ul class="crew">
+          <li class="rise"><span class="crew__n" aria-hidden="true">01</span><h3 class="h3">Barista crew</h3>
+            <p>Run the Tuesday and Thursday shifts, and train whoever's new on the machine.</p></li>
+          <li class="rise"><span class="crew__n" aria-hidden="true">02</span><h3 class="h3">Walk leaders</h3>
+            <p>Plan the Saturday route and set the pace. Someone always walks at the back.</p></li>
+          <li class="rise"><span class="crew__n" aria-hidden="true">03</span><h3 class="h3">Kopi hosts</h3>
+            <p>Keep Wednesday's table going, and notice who hasn't been by this week.</p></li>
+          <li class="rise"><span class="crew__n" aria-hidden="true">04</span><h3 class="h3">On the WhatsApp line</h3>
+            <p>Reply to your first message, usually the same day.</p></li>
+        </ul>
+        <div class="team__cta rise">
+          <a class="btn btn--go" href="#join">Join the team</a>
+          <a class="btn btn--gd" href="#pathway">See how it works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ Join ============ -->
   <section class="join grain" id="join" aria-labelledby="join-h">
     <div class="shell join__g">
@@ -652,7 +715,7 @@ section[id],figure[id]{scroll-margin-top:88px}
         <b>Community<br>Unlimited</b>
       </span>
       <div class="ft__meta">
-        <a href="#you">Who this is for</a><a href="#about">About</a><a href="#pathway">How it works</a><a href="#whats-on">What's on</a><a href="#join">Join</a>
+        <a href="#you">Who this is for</a><a href="#about">About</a><a href="#pathway">How it works</a><a href="#whats-on">What's on</a><a href="#team">Our team</a><a href="#join">Join</a>
       </div>
     </div>
     <div class="ft__tag">

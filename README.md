@@ -189,6 +189,7 @@ content.json        all editable content (feeds index.html only)
 admin/index.html    the content editor
 assets/             photography (WebP) + mark.svg
                     hero.webp = / · hero-wide.webp = /qa and /new
+                    team.webp = the "Our team" section on /qa and /new
 assets/brand/       logo lockups (PNG) for decks and print
 vercel.json         caching + security headers
 robots.txt          keeps /admin, /qa and /new out of search

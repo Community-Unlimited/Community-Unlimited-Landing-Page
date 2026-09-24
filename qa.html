@@ -316,6 +316,35 @@ section[id],figure[id]{scroll-margin-top:96px}
 .ev p{font-size:1.0625rem;line-height:1.55;color:var(--ink-soft);margin-bottom:1.25rem}
 .ev .btn{margin-top:auto;align-self:flex-start}
 
+/* ---------- Our team -------------------------------------------------
+   Copy left, photograph right on desktop — the mirror of the purpose
+   section, so the page doesn't settle into one rhythm. The roles are the
+   ones the events above already need; no names or headcount invented.
+   -------------------------------------------------------------------- */
+.team{display:grid;gap:clamp(2rem,4vw,3.5rem);grid-template-columns:1fr;align-items:start}
+.team__ph{border-radius:var(--r-lg);aspect-ratio:4/5}
+.team__ph img{position:absolute;inset:0;object-position:48% 38%}
+.team__ph::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(5,53,49,0) 60%,rgba(5,53,49,.55) 100%)}
+.team__cap{position:absolute;left:16px;bottom:16px;z-index:2;color:#fff;
+  font-size:.875rem;font-weight:600;letter-spacing:.06em;
+  background:rgba(2,33,30,.78);padding:.45rem .9rem;border-radius:999px}
+.team .h2{max-width:18ch;text-wrap:balance}
+.team .lead{margin-top:1rem;max-width:44ch;text-wrap:pretty}
+.crew{margin-top:clamp(1.75rem,3vw,2.4rem);display:grid;gap:0 2rem;grid-template-columns:1fr}
+.crew li{border-top:1px solid #D9CFBF;padding:1.15rem 0 1.3rem}
+.crew__n{display:block;font-size:.8125rem;font-weight:700;letter-spacing:.16em;color:var(--bronze);margin-bottom:.35rem}
+.crew h3{margin-bottom:.3rem}
+.crew p{font-size:1.0625rem;line-height:1.55;color:var(--ink-soft)}
+.team__cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:clamp(1.25rem,2.4vw,1.75rem)}
+@media (min-width:620px){.crew{grid-template-columns:1fr 1fr}}
+@media (min-width:940px){
+  .team{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(2.5rem,4.5vw,4.5rem);align-items:stretch}
+  .team__copy{grid-column:1;grid-row:1;align-self:center}
+  .team__ph{grid-column:2;grid-row:1;aspect-ratio:auto;min-height:clamp(540px,48vw,700px)}
+  .team__cap{left:20px;bottom:20px}
+}
+
 /* ---------- Join ------------------------------------------------------ */
 .join{background:var(--emerald);color:#fff;padding-block:clamp(3.75rem,7.5vw,6.25rem)}
 .join__g{display:grid;gap:clamp(2.25rem,4.5vw,4rem);grid-template-columns:1fr}
@@ -632,6 +661,35 @@ section[id],figure[id]{scroll-margin-top:96px}
     </div>
   </section>
 
+  <!-- ============ Our team ======================================= -->
+  <section class="sec sec--sand" id="team" aria-labelledby="team-h">
+    <div class="shell team">
+      <figure class="team__ph ph rise">
+        <img src="/assets/team.webp" alt="A man with white hair in a leather apron, laughing as he tamps fresh espresso behind a busy café counter" loading="lazy">
+        <figcaption class="team__cap">On shift · Community barista</figcaption>
+      </figure>
+      <div class="team__copy">
+        <p class="eyebrow">Our team</p>
+        <h2 class="h2" id="team-h">The people running it live down the road</h2>
+        <p class="lead muted">The NextGen community runs all of this, from the coffee machine to the WhatsApp line. Every one of them started the way you would — by coming along once.</p>
+        <ul class="crew">
+          <li class="rise"><span class="crew__n">01</span><h3 class="h3">Barista crew</h3>
+            <p>Run the Tuesday and Thursday shifts, and train whoever's new on the machine.</p></li>
+          <li class="rise"><span class="crew__n">02</span><h3 class="h3">Walk leaders</h3>
+            <p>Plan the Saturday route and set the pace. Someone always walks at the back.</p></li>
+          <li class="rise"><span class="crew__n">03</span><h3 class="h3">Kopi hosts</h3>
+            <p>Keep Wednesday's table going, and notice who hasn't been by this week.</p></li>
+          <li class="rise"><span class="crew__n">04</span><h3 class="h3">On the WhatsApp line</h3>
+            <p>Reply to your first message, usually the same day.</p></li>
+        </ul>
+        <div class="team__cta">
+          <a class="btn btn--go" href="#join">Join the team</a>
+          <a class="btn btn--g" href="#pathway">See how it works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ Join =========================================== -->
   <section class="join onDark grain" id="join" aria-labelledby="join-h">
     <div class="shell join__g">
@@ -666,7 +724,7 @@ section[id],figure[id]{scroll-margin-top:96px}
         <b>Community<br>Unlimited</b>
       </span>
       <div class="ft__meta">
-        <a href="#you">Who this is for</a><a href="#about">About</a><a href="#pathway">How it works</a><a href="#whats-on">What's on</a><a href="#join">Join</a>
+        <a href="#you">Who this is for</a><a href="#about">About</a><a href="#pathway">How it works</a><a href="#whats-on">What's on</a><a href="#team">Our team</a><a href="#join">Join</a>
       </div>
     </div>
     <div class="ft__tag">
